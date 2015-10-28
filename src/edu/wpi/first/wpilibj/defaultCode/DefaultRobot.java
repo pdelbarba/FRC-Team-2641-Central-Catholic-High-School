@@ -1,4 +1,5 @@
 package edu.wpi.first.wpilibj.defaultCode;
+import java.lang.Math;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -137,6 +138,7 @@ public class DefaultRobot extends IterativeRobot {
 
     float GetX() {
         float myX = (float)mainStick.getX();//left right
+       
         if(myX < 0.05 && myX > -0.05)
             return 0;
         else
@@ -146,6 +148,7 @@ public class DefaultRobot extends IterativeRobot {
 
     float GetY() {
         float myX = (float)mainStick.getY();//up down
+        
         if(myX < 0.05 && myX > -0.05)
             return 0;
         else
@@ -154,6 +157,7 @@ public class DefaultRobot extends IterativeRobot {
     
     float GetZ() {
         float myX = (float)mainStick.getThrottle();
+        
         if(myX < 0.05 && myX > -0.05)
             return 0;
         else
@@ -165,9 +169,15 @@ public class DefaultRobot extends IterativeRobot {
         return myX;
     }
     */
-    float smoothStick(float a){
-	float val = 4.0f * ((0.0000444511f*a*a*a)-(0.0000279309f*a*a)+(0.295710f*a));
-	if (val < -1.0f) val = -1.0f; else if (val > 1.0f) val = 1.0f;
-	return val;
+    float smoothStick(float a)
+    {
+    	float val = 4.0f * ((0.0000444511f*pow(a,3))-(0.0000279309f*pow(a,2))+(0.295710f*a));
+    	
+    	if (val < -1.0f) 
+    		val = -1.0f; 
+    	else if (val > 1.0f) 
+    		val = 1.0f;
+    	
+    	return val;
     }
 }
